@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="./style.css">
+  <title>app</title>
+  <script type="text/javascript"><!--
+    
+    const isIOS = /iP(hone|(o|a)d)/.test(navigator.userAgent);
+
+    window.onload = function(){
+      let gid  = getParam("gid");
+
+      let link = document.createElement('link');
+      if(isIOS) link.href = 'frameForIos.css';  // IOS用CSS
+      else      link.href = 'frameDefault.css'; // デフォルトCSS
+      link.rel  = 'stylesheet';
+      link.type = 'text/css';
+      document.getElementsByTagName('head')[0].appendChild(link);
+        
+      if(!gid){
+        gid = prompt("GASアプリケーションのIDを入力してください","AKfycbx2viLcX4jn859NawGeFtWGpMgbiZUHECFtGCfQ5H5bn64EzVGu")
+      }
+      const url = `https://script.google.com/macros/s/${gid}/exec`;
+      window.open(url,"_mainFrame");
+    }
+    
+
+    function getParam(name) {
+      let url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+    
+
+  --></script>
+</head>
+<body>
+    <div class="iframeWrapper"><iframe name="_mainFrame" id="_mainFrame"></iframe></div>  
+</body>
+</html>
